@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 961630298}
   - component: {fileID: 961630300}
   - component: {fileID: 961630299}
+  - component: {fileID: 961630301}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -677,6 +678,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &961630301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961630297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 016e2abf107448645b201d163f05966a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1669436305}
+  bobSpeed: 0.05
 --- !u!1 &1526980365
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +796,7 @@ GameObject:
   - component: {fileID: 1669436304}
   - component: {fileID: 1669436305}
   - component: {fileID: 1669436306}
+  - component: {fileID: 1669436307}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -838,6 +854,7 @@ MonoBehaviour:
   moveSpeed: 5
   cameraPitch: 0
   lockCursor: 0
+  moveVelocity: {x: 0, y: 0, z: 0}
 --- !u!212 &1669436306
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -888,3 +905,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1669436307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669436302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 016e2abf107448645b201d163f05966a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1669436305}
+  bobSpeed: 0.5

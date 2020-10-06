@@ -16,7 +16,7 @@ public class FirstPerson_Controller : MonoBehaviour
     public float cameraPitch = 0.0f;
 
     public bool lockCursor;
-
+    public Vector3 moveVelocity;
     private CharacterController characterController;
 
     void Start()
@@ -76,11 +76,11 @@ public class FirstPerson_Controller : MonoBehaviour
 
 
         // Apply the move velocity relative to vectors
-        Vector3 moveVelocity = (transform.forward * moveDir.y + transform.right * moveDir.x) * moveSpeed;
+        moveVelocity = (transform.forward * moveDir.y + transform.right * moveDir.x) * moveSpeed * Time.deltaTime;
 
         // Apply to character controller with respect to Time (fps issue)
         
-        characterController.Move(moveVelocity * Time.deltaTime);
+        characterController.Move(moveVelocity);
   
             
 
