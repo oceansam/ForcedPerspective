@@ -8,7 +8,7 @@ public class FPC_Bob : MonoBehaviour
     
     public FirstPerson_Controller controller;
     float defaultPosition = 0;
-    public float bobSpeed = 0.05f;
+    public float bobSpeed = 0.15f;
     private float timeShift = 0;
 
     void Start()

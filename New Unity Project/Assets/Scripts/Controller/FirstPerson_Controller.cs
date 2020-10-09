@@ -15,6 +15,8 @@ public class FirstPerson_Controller : MonoBehaviour
 
     public float cameraPitch = 0.0f;
 
+    public float gravity_Val = -10.0f;
+
     public bool lockCursor;
     public Vector3 moveVelocity;
     private CharacterController characterController;
@@ -43,7 +45,7 @@ public class FirstPerson_Controller : MonoBehaviour
     void UpdateMouseLook(){
 
         // Get mouse space on screen and convert to input axis
-        Vector2 mouseDir = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector2 mouseDir = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
 
         // Degree of rotation with mouseDir.y (-= because x rotiation is inverted)
         cameraPitch -= mouseDir.y * camSpeed;
@@ -68,7 +70,7 @@ public class FirstPerson_Controller : MonoBehaviour
 
 
         // Store both horizontal and vertical input as a vector
-        Vector3 moveDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector3 moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         // Normalize the vector (Case of b = 1, h = 1 and hypot = root(2), we move at a 1.41 speed therefore
         //                       therefore faster than our original 1)
@@ -76,10 +78,19 @@ public class FirstPerson_Controller : MonoBehaviour
 
 
         // Apply the move velocity relative to vectors
-        moveVelocity = (transform.forward * moveDir.y + transform.right * moveDir.x) * moveSpeed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.LeftShift)){
+            moveSpeed = 10.0f;
+            moveVelocity = (transform.forward * moveDir.y + transform.right * moveDir.x) * moveSpeed * Time.deltaTime;
+            
+        }
+        else{
+            moveSpeed = 5.0f;
+            moveVelocity = (transform.forward * moveDir.y + transform.right * moveDir.x) * moveSpeed * Time.deltaTime;
+
+        }
 
         // Apply to character controller with respect to Time (fps issue)
-        
+        moveVelocity.y += gravity_Val * Time.deltaTime;
         characterController.Move(moveVelocity);
   
             
