@@ -114,17 +114,4 @@ public class FirstPerson_Controller : MonoBehaviour
 
 
 
-    IEnumerator headBob(){
-        float temp = 0.0f;
-
-        while (temp <= 1.0f){
-        temp += 0.000005f * Time.deltaTime;
-        float bobSpeed = Mathf.Lerp(1.0f, 1.5f, temp);
-        cam.transform.Rotate(Vector3.right * bobSpeed);
-
-        }
-
-        yield return null;
-    }
-
 }
