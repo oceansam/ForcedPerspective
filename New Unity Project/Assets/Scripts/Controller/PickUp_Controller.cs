@@ -8,7 +8,8 @@ public class PickUp_Controller : MonoBehaviour
     public Transform cam;
     public LayerMask layerMask;
     public Transform guide;
-    private bool attach;
+    private bool attach = false;
+    
 
 
     /*
@@ -31,12 +32,24 @@ public class PickUp_Controller : MonoBehaviour
     private void detectRay(){
 
         RaycastHit hit;
+        bool raycastCheck = Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask);
+        if (raycastCheck){
 
-        if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask) && Input.GetKeyDown(KeyCode.E)){
+            if (attach && Input.GetKeyDown(KeyCode.Q)){
+                attach = false;
+                resetPosition(hit);
+                
+            
+            }
+
             Debug.DrawRay(cam.transform.position, cam.transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
             Debug.Log("hit!");
-            attach = true;
-            setPosition(hit);
+            
+            if (!attach && Input.GetKeyDown(KeyCode.E)){
+                attach = true;
+                setPosition(hit);
+
+            }
 
         }
         else{
@@ -44,13 +57,8 @@ public class PickUp_Controller : MonoBehaviour
             Debug.Log("No hit!");
         }
 
-        if (attach){
-            setPosition(hit);
-        }
-        else if (attach && Input.GetKeyDown(KeyCode.E)){
-            resetPosition(hit);
-            attach = false;
-        }
+        
+
 
 
     }
@@ -59,10 +67,12 @@ public class PickUp_Controller : MonoBehaviour
         GameObject hittemp;
       
         hittemp = hit.collider.gameObject;
+        
         hittemp.GetComponent<Rigidbody>().useGravity = false;
         hittemp.GetComponent<Rigidbody>().isKinematic = true;
         hittemp.transform.position = guide.position;
         hittemp.transform.rotation = guide.rotation;
+        hittemp.transform.parent = guide.transform;
 
         
 
@@ -74,7 +84,9 @@ public class PickUp_Controller : MonoBehaviour
         hittemp = hit.collider.gameObject;
         hittemp.GetComponent<Rigidbody>().useGravity = true;
         hittemp.GetComponent<Rigidbody>().isKinematic = false;
-        hittemp.transform.position = guide.position;
-        hittemp.transform.rotation = guide.rotation;
+        hittemp.transform.parent = null;
+        
     }
+
+    
 }

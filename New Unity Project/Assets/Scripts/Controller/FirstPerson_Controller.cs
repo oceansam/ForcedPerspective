@@ -5,7 +5,8 @@ using UnityEngine;
 public class FirstPerson_Controller : MonoBehaviour
 {
     
-    public Transform cam = null;
+    public Camera cam;
+    public Transform guide;
 
     [Range(0f, 5f)]
     public float camSpeed = 0.5f;
@@ -20,7 +21,8 @@ public class FirstPerson_Controller : MonoBehaviour
     public bool lockCursor;
     public Vector3 moveVelocity;
     private CharacterController characterController;
-
+    int x = Screen.width / 2;
+    int y = Screen.height / 2;
     void Start()
     {
         lockCursor = true;
@@ -54,12 +56,16 @@ public class FirstPerson_Controller : MonoBehaviour
         cameraPitch = Mathf.Clamp(cameraPitch, -90.0f, 90.0f);
 
         // Rotation in degrees relative to parent transform (preserves parent objects forward vector)
-        cam.localEulerAngles = Vector3.right * cameraPitch;
+        cam.transform.localEulerAngles = Vector3.right * cameraPitch;
 
         // Rotate transform in the horizontal
+        //guide.transform.position = Camera.main.ScreenToViewportPoint(cam.position);
+        
         transform.Rotate(Vector3.up * mouseDir.x * camSpeed);
-    
-    }
+        //changes guide position relative to camera
+        guide.position = cam.transform.position + cam.transform.forward * 3.0f;
+        guide.rotation = cam.transform.rotation;
+    }   
 
     /*
     UpdateMovement()
