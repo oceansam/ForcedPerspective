@@ -20,6 +20,7 @@ public class FPC_Bob : MonoBehaviour
     void Update()
     {
         
+        //Create a bob effect represented as a sin function
         if (Mathf.Abs(controller.moveVelocity.x) > 0 || Mathf.Abs(controller.moveVelocity.z) > 0){
 
 
